@@ -12,11 +12,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Compile CPP
-        run: g++ main.cpp -o hilya.cpp
+     - name: Compile C++
+  run: g++ hilya.cpp -o hilya.exe
 
       - name: Upload EXE
         uses: actions/upload-artifact@v4
         with:
           name: main-exe
-          path: main.exe
+          path: hilya.exe
