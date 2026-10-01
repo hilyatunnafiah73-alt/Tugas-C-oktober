@@ -1,4 +1,4 @@
-name: build C++ to EXE
+name: Build C++ to EXE
 
 on:
   push:
@@ -22,7 +22,7 @@ jobs:
 
       - name: Compile C++ to EXE
         shell: msys2 {0}
-        run: 
+        run: |
           g++ -std=c++17 -O2 -static hilya.cpp -o hilya.exe
 
       - name: Upload EXE
