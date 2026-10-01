@@ -1,22 +1,25 @@
 name: C++ to EXE
 
 on:
-  workflow_dispatch:
   push:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: windows-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-     - name: Compile C++
-  run: g++ hilya.cpp -o hilya.exe
+      - name: Compile
+        shell: cmd
+        run: |
+          g++ *.cpp -o hilya.exe
 
       - name: Upload EXE
         uses: actions/upload-artifact@v4
         with:
-          name: main-exe
+          name: hilya-exe
           path: hilya.exe
