@@ -1,4 +1,4 @@
-name: C++ to EXE
+name: Build C++ to EXE
 
 on:
   push:
@@ -10,16 +10,24 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: Checkout
+      - name: Download source code
         uses: actions/checkout@v4
 
-      - name: Compile
-        shell: cmd
-        run: |
-          g++ *.cpp -o hilya.exe
+      - name: Setup MinGW compiler
+        uses: msys2/setup-mys2@v2
+        with:
+          msystem: UCRT64
+          update: true
+          install: mingw-w64-ucrt-x86_64-gcc
 
+          -name: Compile C++ to EXE
+          shell: msys2 {0}
+          run:
+          g++ -std=c++17 -02 -static hilya.cpp -0 hilya.exe
+          
       - name: Upload EXE
         uses: actions/upload-artifact@v4
         with:
-          name: hilya-exe
+          name: compiled-exe
           path: hilya.exe
+          if-no-files-found: error
